@@ -2,11 +2,14 @@ applications:
 - name: tracker-timesheets
   path: ./applications/timesheets-server/build/libs/timesheets-server.jar
   routes:
-    - route: allocations-pal-np-timesheet-gotd.apps.evans.pal.pivotal.io
+  - route: timesheets-pal-${UNIQUE_IDENTIFIER}.${DOMAIN}
   memory: 1G
   instances: 1
   env:
     JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    GRANT_TYPE: client_credentials
   services:
   - tracker-timesheets-database
   - tracker-service-registry
+  - tracker-sso
+  - tracker-config-server
